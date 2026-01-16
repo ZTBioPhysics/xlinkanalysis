@@ -1,0 +1,36 @@
+# Domain Definitions for Cross-link Analysis
+#
+# This file defines protein domain boundaries for residue annotation.
+# Modify this file to adapt the analysis to different proteins.
+#
+# Format:
+#   domain_name:
+#     ranges: [[start1, end1], [start2, end2], ...]
+#     color: "#HEXCODE"  (optional, for visualization)
+#     description: "text" (optional)
+
+domains:
+  NTD:
+    ranges: [[1, 994]]
+    color: "#1f77b4"
+    description: "N-terminal domain"
+
+  beta-belt:
+    ranges: [[995, 2378]]
+    color: "#ff7f0e"
+    description: "Beta-belt domain"
+
+  alpha-domain:
+    ranges: [[2379, 2674]]
+    color: "#2ca02c"
+    description: "Alpha-helical domain"
+
+  linker:
+    ranges: [[2675, 2724]]
+    color: "#d62728"
+    description: "Linker region"
+
+  VWF-domain:
+    ranges: [[2725, 3310]]
+    color: "#9467bd"
+    description: "Von Willebrand Factor domain"

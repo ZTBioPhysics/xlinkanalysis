@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xlinkanalysis"
+version = "1.0.0"
+description = "Cross-linking mass spectrometry (XL-MS) data analysis package"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Berndsen Lab", email = "berndsen@missouri.edu"}
+]
+keywords = [
+    "mass spectrometry",
+    "cross-linking",
+    "XL-MS",
+    "proteomics",
+    "structural biology",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Chemistry",
+]
+dependencies = [
+    "pandas>=1.5.0",
+    "numpy>=1.20.0",
+    "matplotlib>=3.5.0",
+    "biopython>=1.80",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "flake8>=6.0",
+]
+docs = [
+    "sphinx>=6.0",
+    "sphinx-rtd-theme>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/berndsenlab/xlinkanalysis"
+Documentation = "https://github.com/berndsenlab/xlinkanalysis#readme"
+Repository = "https://github.com/berndsenlab/xlinkanalysis"
+Issues = "https://github.com/berndsenlab/xlinkanalysis/issues"
+
+[project.scripts]
+xlink-analyze = "scripts.run_analysis:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+xlinkanalysis = ["py.typed"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v --cov=xlinkanalysis --cov-report=term-missing"

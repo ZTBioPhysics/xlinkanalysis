@@ -1,0 +1,53 @@
+# Analysis Configuration
+#
+# This file contains parameters for the cross-link analysis pipeline.
+# Modify these values instead of editing the code directly.
+
+# Filtering thresholds
+filtering:
+  # Minimum spectral count to consider a crosslink reliable
+  spectral_count_min: 5
+
+  # Maximum C-alpha distance (Angstroms) for "satisfied" crosslinks
+  # Typical DSSO crosslinker: ~26 Å, BS3: ~24 Å
+  ca_distance_max: 26
+
+  # Alternative distance thresholds for reporting
+  ca_distance_thresholds: [20, 26, 50]
+
+  # Spectral count thresholds for reporting
+  spectral_count_thresholds: [5, 10, 20]
+
+# Plotting parameters
+plotting:
+  figure_size: [10, 6]
+  font_size_label: 16
+  font_size_tick: 14
+  font_size_title: 16
+  font_size_legend: 14
+  dpi: 300
+
+  # Default colors
+  colors:
+    primary: "#1f77b4"
+    secondary: "#ff7f0e"
+    threshold_line: "red"
+
+# ChimeraX visualization
+chimera:
+  # Default model number for distance commands
+  default_model: 1
+
+  # Distance display style
+  distance_style:
+    color: "green"
+    radius: 0.5
+    dashes: 0
+
+# Output formats
+output:
+  # Save figures in these formats
+  figure_formats: ["png", "pdf"]
+
+  # Decimal places for distance values
+  distance_precision: 1
