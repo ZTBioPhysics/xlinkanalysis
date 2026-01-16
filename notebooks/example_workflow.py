@@ -3,14 +3,6 @@
 Example Workflow: Clean XL-MS Analysis
 
 This script demonstrates the recommended workflow for analyzing crosslink data.
-Instead of creating many intermediate variables (df, filtered_df1, filtered_df2...),
-we use a staged approach with meaningful names.
-
-STAGE 1: Create annotated dataset (run once, save the result)
-STAGE 2: Load annotated data and answer specific questions
-
-The key insight: Once you have the annotated CSV with all distances and domains,
-you never need to recalculate them. Just load and filter as needed.
 """
 
 # =============================================================================
@@ -70,10 +62,8 @@ def create_annotated_dataset():
 
 
 # =============================================================================
-# STAGE 2: ANALYSIS (Load annotated data and ask questions)
+# STAGE 2: ANALYSIS
 # =============================================================================
-# This is where you do your actual analysis. Since everything is pre-calculated,
-# filtering is instant. No need to track multiple DataFrames - just filter on demand.
 
 def analyze_crosslinks(df):
     """
@@ -96,10 +86,10 @@ def analyze_crosslinks(df):
     print(f"C-alpha distance: {ca_mean:.1f} ± {ca_std:.1f} Å")
 
     # What percentage are within crosslinker span?
-    pct_26 = statistics.percentage_within_threshold(df, 'CA Distance', 26)
-    pct_50 = statistics.percentage_within_threshold(df, 'CA Distance', 50)
-    print(f"Within 26 Å: {pct_26:.1f}%")
-    print(f"Within 50 Å: {pct_50:.1f}%")
+    pct_20 = statistics.percentage_within_threshold(df, 'CA Distance', 20)
+    pct_40 = statistics.percentage_within_threshold(df, 'CA Distance', 40)
+    print(f"Within 20 Å: {pct_26:.1f}%")
+    print(f"Within 40 Å: {pct_50:.1f}%")
 
     # -------------------------------------------------------------------------
     # QUESTION 1: What are the high-confidence crosslinks?
@@ -110,8 +100,8 @@ def analyze_crosslinks(df):
     high_conf = filtering.by_spectral_count(df, min_count=5)
     print(f"Count: {len(high_conf)}")
 
-    sat_rate = statistics.satisfaction_rate(high_conf, distance_threshold=26)
-    print(f"Satisfaction rate (≤26 Å): {sat_rate:.1f}%")
+    sat_rate = statistics.satisfaction_rate(high_conf, distance_threshold=20)
+    print(f"Satisfaction rate (≤20 Å): {sat_rate:.1f}%")
 
     # Save this subset if you need it
     io.save_crosslinks(high_conf, f"{OUTPUT_DIR}/tables/HDL_high_confidence_sc5.csv")
@@ -133,7 +123,7 @@ def analyze_crosslinks(df):
     # -------------------------------------------------------------------------
     print("\n--- VIOLATED CROSSLINKS (High SC but >26 Å) ---")
 
-    violated = filtering.violated_crosslinks(df, min_distance=26, min_spectral_count=5)
+    violated = filtering.violated_crosslinks(df, min_distance=20, min_spectral_count=5)
     print(f"Count: {len(violated)}")
 
     if len(violated) > 0:
@@ -143,9 +133,9 @@ def analyze_crosslinks(df):
     # -------------------------------------------------------------------------
     # QUESTION 4: What's happening in a specific domain?
     # -------------------------------------------------------------------------
-    print("\n--- VWF-DOMAIN CROSSLINKS ---")
+    print("\n--- NTD CROSSLINKS ---")
 
-    vwf_links = filtering.by_domain(df, domain="VWF-domain")
+    vwf_links = filtering.by_domain(df, domain="NTD")
     vwf_high_conf = filtering.by_spectral_count(vwf_links, min_count=5)
     print(f"Total involving VWF-domain: {len(vwf_links)}")
     print(f"High-confidence: {len(vwf_high_conf)}")
@@ -183,7 +173,7 @@ def create_plots(df):
 
     # Plot 1: CA Distance vs Spectral Count
     print("\n1. CA Distance vs Spectral Count...")
-    fig = visualization.plot_ca_vs_spectral(df, ca_threshold=26, spectral_threshold=5)
+    fig = visualization.plot_ca_vs_spectral(df, ca_threshold=20, spectral_threshold=5)
     visualization.save_figure(fig, f"{OUTPUT_DIR}/figures/ca_vs_spectral")
     plt.close()
 
@@ -195,7 +185,7 @@ def create_plots(df):
     fig = visualization.plot_ca_cumulative_comparison(
         [df, df_sc5, df_sc10],
         [f"All (n={len(df)})", f"SC≥5 (n={len(df_sc5)})", f"SC≥10 (n={len(df_sc10)})"],
-        threshold_line=26
+        threshold_line=20
     )
     visualization.save_figure(fig, f"{OUTPUT_DIR}/figures/cumulative_distribution")
     plt.close()
@@ -221,7 +211,7 @@ def generate_chimera_script(df):
         high_conf,
         PDB_FILE,
         color_by_satisfaction=True,
-        threshold=26
+        threshold=20
     )
 
     script_path = f"{OUTPUT_DIR}/chimera/visualize_HDL_crosslinks.cxc"
@@ -254,3 +244,4 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("ANALYSIS COMPLETE!")
     print("=" * 60)
+
