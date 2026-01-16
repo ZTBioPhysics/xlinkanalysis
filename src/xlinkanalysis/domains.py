@@ -42,7 +42,7 @@ def annotate_domains(df: pd.DataFrame,
     Add domain association annotations to crosslink data.
 
     Adds a 'Domain Association' column describing which domains each
-    crosslink connects (e.g., "NTD to beta-belt").
+    crosslink connects (e.g., "NTD to CTD").
 
     Args:
         df: DataFrame with 'Residue1' and 'Residue2' columns.
@@ -57,8 +57,8 @@ def annotate_domains(df: pd.DataFrame,
         >>> df = annotate_domains(df, "config/domains.yaml")
         >>> df['Domain Association'].head()
         0    NTD to NTD
-        1    NTD to beta-belt
-        2    beta-belt to beta-belt
+        1    NTD to CTD
+        2    CTD to CTD
     """
     df = df.copy()
 
@@ -240,10 +240,11 @@ def is_inter_domain(domain_association: str) -> bool:
     Check if a domain association represents an inter-domain crosslink.
 
     Args:
-        domain_association: String like "NTD to beta-belt" or "NTD to NTD".
+        domain_association: String like "NTD to CTD" or "NTD to NTD".
 
     Returns:
         True if crosslink is between different domains.
     """
     domains = domain_association.split(" to ")
     return len(set(domains)) > 1
+
