@@ -10,7 +10,7 @@ filtering:
 
   # Maximum C-alpha distance (Angstroms) for "satisfied" crosslinks
   # Typical DSSO crosslinker: ~26 Å, BS3: ~24 Å
-  ca_distance_max: 26
+  ca_distance_max: 20
 
   # Alternative distance thresholds for reporting
   ca_distance_thresholds: [20, 26, 50]
@@ -51,3 +51,4 @@ output:
 
   # Decimal places for distance values
   distance_precision: 1
+
