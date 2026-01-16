@@ -11,26 +11,12 @@
 
 domains:
   NTD:
-    ranges: [[1, 994]]
+    ranges: [[1, 100]]
     color: "#1f77b4"
     description: "N-terminal domain"
 
-  beta-belt:
-    ranges: [[995, 2378]]
+  CTD:
+    ranges: [[101, 200]]
     color: "#ff7f0e"
-    description: "Beta-belt domain"
+    description: "C-terminal domain"
 
-  alpha-domain:
-    ranges: [[2379, 2674]]
-    color: "#2ca02c"
-    description: "Alpha-helical domain"
-
-  linker:
-    ranges: [[2675, 2724]]
-    color: "#d62728"
-    description: "Linker region"
-
-  VWF-domain:
-    ranges: [[2725, 3310]]
-    color: "#9467bd"
-    description: "Von Willebrand Factor domain"
