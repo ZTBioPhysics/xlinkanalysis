@@ -44,7 +44,7 @@ def by_ca_distance(df: pd.DataFrame,
         Filtered DataFrame.
 
     Example:
-        >>> df_close = by_ca_distance(df, 26, comparison='less')
+        >>> df_close = by_ca_distance(df, 20, comparison='less')
         >>> df_far = by_ca_distance(df, 50, comparison='greater')
     """
     if 'CA Distance' not in df.columns:
@@ -131,7 +131,7 @@ def by_domain(df: pd.DataFrame,
     Args:
         df: DataFrame with 'Domain Association' column.
         domain: Specific domain or domain pair to include.
-               Examples: "NTD", "NTD to beta-belt"
+               Examples: "NTD", "NTD to CTD"
                If None, includes all domains (subject to other filters).
         exclude_intra: If True, exclude intra-domain crosslinks.
         exclude_domains: List of domains to exclude from results.
@@ -146,8 +146,8 @@ def by_domain(df: pd.DataFrame,
         >>> # Get crosslinks involving NTD
         >>> df_ntd = by_domain(df, domain="NTD")
 
-        >>> # Get NTD to beta-belt crosslinks specifically
-        >>> df_pair = by_domain(df, domain="NTD to beta-belt")
+        >>> # Get NTD to CTD crosslinks specifically
+        >>> df_pair = by_domain(df, domain="NTD to CTD")
     """
     if "Domain Association" not in df.columns:
         raise ValueError("DataFrame must include a 'Domain Association' column.")
@@ -224,3 +224,4 @@ def violated_crosslinks(df: pd.DataFrame,
         (df['CA Distance'] > min_distance) &
         (df['Spectral Count'] >= min_spectral_count)
     ].copy()
+
