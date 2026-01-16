@@ -67,10 +67,10 @@ df = domains.annotate_domains(df, "config/domains.yaml")
 
 # Filter high-confidence crosslinks
 df_filtered = filtering.by_spectral_count(df, min_count=5)
-df_satisfied = filtering.satisfied_crosslinks(df_filtered, max_distance=26)
+df_satisfied = filtering.satisfied_crosslinks(df_filtered, max_distance=20)
 
 # Generate plots
-fig = visualization.plot_ca_vs_spectral(df, ca_threshold=26)
+fig = visualization.plot_ca_vs_spectral(df, ca_threshold=20)
 fig.savefig("ca_vs_spectral.png")
 
 # Save results
@@ -131,7 +131,7 @@ Configure thresholds and plotting options:
 ```yaml
 filtering:
   spectral_count_min: 5
-  ca_distance_max: 26
+  ca_distance_max: 20
 
 plotting:
   figure_size: [10, 6]

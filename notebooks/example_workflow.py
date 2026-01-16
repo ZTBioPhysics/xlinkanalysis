@@ -52,7 +52,7 @@ def create_annotated_dataset():
     df = domains.annotate_domains(df, DOMAINS_CONFIG)
 
     # Save the annotated dataset - THIS IS YOUR NEW STARTING POINT
-    output_file = f"{OUTPUT_DIR}/tables/HDL_crosslinks_annotated.csv"
+    output_file = f"{OUTPUT_DIR}/tables/crosslinks_annotated.csv"
     io.save_crosslinks(df, output_file)
 
     print(f"\n✓ Annotated dataset saved to:\n  {output_file}")
@@ -88,8 +88,8 @@ def analyze_crosslinks(df):
     # What percentage are within crosslinker span?
     pct_20 = statistics.percentage_within_threshold(df, 'CA Distance', 20)
     pct_40 = statistics.percentage_within_threshold(df, 'CA Distance', 40)
-    print(f"Within 20 Å: {pct_26:.1f}%")
-    print(f"Within 40 Å: {pct_50:.1f}%")
+    print(f"Within 20 Å: {pct_20:.1f}%")
+    print(f"Within 40 Å: {pct_40:.1f}%")
 
     # -------------------------------------------------------------------------
     # QUESTION 1: What are the high-confidence crosslinks?
@@ -104,7 +104,7 @@ def analyze_crosslinks(df):
     print(f"Satisfaction rate (≤20 Å): {sat_rate:.1f}%")
 
     # Save this subset if you need it
-    io.save_crosslinks(high_conf, f"{OUTPUT_DIR}/tables/HDL_high_confidence_sc5.csv")
+    io.save_crosslinks(high_conf, f"{OUTPUT_DIR}/tables/high_confidence_sc5.csv")
 
     # -------------------------------------------------------------------------
     # QUESTION 2: What are the inter-domain crosslinks?
@@ -121,7 +121,7 @@ def analyze_crosslinks(df):
     # -------------------------------------------------------------------------
     # QUESTION 3: Which crosslinks are "violated" (too far apart)?
     # -------------------------------------------------------------------------
-    print("\n--- VIOLATED CROSSLINKS (High SC but >26 Å) ---")
+    print("\n--- VIOLATED CROSSLINKS (High SC but >20 Å) ---")
 
     violated = filtering.violated_crosslinks(df, min_distance=20, min_spectral_count=5)
     print(f"Count: {len(violated)}")
@@ -135,10 +135,10 @@ def analyze_crosslinks(df):
     # -------------------------------------------------------------------------
     print("\n--- NTD CROSSLINKS ---")
 
-    vwf_links = filtering.by_domain(df, domain="NTD")
-    vwf_high_conf = filtering.by_spectral_count(vwf_links, min_count=5)
-    print(f"Total involving VWF-domain: {len(vwf_links)}")
-    print(f"High-confidence: {len(vwf_high_conf)}")
+    ntd_links = filtering.by_domain(df, domain="NTD")
+    ntd_high_conf = filtering.by_spectral_count(ntd_links, min_count=5)
+    print(f"Total involving NTD: {len(ntd_links)}")
+    print(f"High-confidence: {len(ntd_high_conf)}")
 
     # -------------------------------------------------------------------------
     # QUESTION 5: What crosslinks involve a specific residue?
@@ -214,7 +214,7 @@ def generate_chimera_script(df):
         threshold=20
     )
 
-    script_path = f"{OUTPUT_DIR}/chimera/visualize_HDL_crosslinks.cxc"
+    script_path = f"{OUTPUT_DIR}/chimera/visualize_crosslinks.cxc"
     chimera.save_chimera_script(script, script_path)
 
     print(f"\nTo visualize in ChimeraX:")
@@ -230,7 +230,7 @@ if __name__ == "__main__":
     df = create_annotated_dataset()
 
     # OPTION 2: Load existing annotated dataset (use this after first run)
-    # df = io.load_annotated_crosslinks(f"{OUTPUT_DIR}/tables/HDL_crosslinks_annotated.csv")
+    # df = io.load_annotated_crosslinks(f"{OUTPUT_DIR}/tables/crosslinks_annotated.csv")
 
     # Run analysis
     analyze_crosslinks(df)

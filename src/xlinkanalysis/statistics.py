@@ -52,8 +52,8 @@ def percentage_within_threshold(df: pd.DataFrame,
         Percentage of values meeting the criteria.
 
     Example:
-        >>> pct = percentage_within_threshold(df, 'CA Distance', 26, 'less')
-        >>> print(f"{pct:.1f}% of crosslinks are within 26 Angstroms")
+        >>> pct = percentage_within_threshold(df, 'CA Distance', 20, 'less')
+        >>> print(f"{pct:.1f}% of crosslinks are within 20 Angstroms")
     """
     if column not in df.columns:
         raise ValueError(f"Column '{column}' not found in DataFrame.")
@@ -73,7 +73,7 @@ def percentage_within_threshold(df: pd.DataFrame,
 
 
 def satisfaction_rate(df: pd.DataFrame,
-                      distance_threshold: float = 26.0,
+                      distance_threshold: float = 20.0,
                       spectral_count_min: int = 1) -> float:
     """
     Calculate the percentage of crosslinks satisfied by the structure.

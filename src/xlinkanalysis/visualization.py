@@ -32,7 +32,7 @@ def set_publication_style(font_size: int = 14) -> None:
 
 
 def plot_ca_vs_spectral(df: pd.DataFrame,
-                        ca_threshold: Optional[float] = 26,
+                        ca_threshold: Optional[float] = 20,
                         spectral_threshold: Optional[int] = 5,
                         figsize: Tuple[int, int] = (10, 6),
                         title: str = 'C-alpha Distance vs Spectral Count',
@@ -80,7 +80,7 @@ def plot_ca_vs_spectral(df: pd.DataFrame,
 def plot_sequence_vs_ca(df: pd.DataFrame,
                         highlight_df: Optional[pd.DataFrame] = None,
                         highlight_label: str = 'Filtered',
-                        ca_threshold: Optional[float] = 26,
+                        ca_threshold: Optional[float] = 20,
                         figsize: Tuple[int, int] = (10, 6),
                         title: str = 'Sequence Distance vs C-alpha Distance',
                         save_path: Optional[str] = None) -> plt.Figure:
@@ -177,7 +177,7 @@ def plot_cumulative_distribution(df: pd.DataFrame,
 
 def plot_ca_cumulative_comparison(dataframes: List[pd.DataFrame],
                                   labels: List[str],
-                                  threshold_line: Optional[float] = 26,
+                                  threshold_line: Optional[float] = 20,
                                   figsize: Tuple[int, int] = (10, 6),
                                   title: str = 'Cumulative Distribution of C-alpha Distances',
                                   save_path: Optional[str] = None) -> plt.Figure:

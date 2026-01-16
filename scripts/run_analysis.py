@@ -111,7 +111,7 @@ def main():
         config = load_analysis_config(args.config)
     except FileNotFoundError:
         print(f"Warning: Config file not found, using defaults")
-        config = {'filtering': {'spectral_count_min': 5, 'ca_distance_max': 26}}
+        config = {'filtering': {'spectral_count_min': 5, 'ca_distance_max': 20}}
 
     # Get thresholds
     spectral_min = args.spectral_min or config.get('filtering', {}).get('spectral_count_min', 5)
@@ -150,9 +150,9 @@ def main():
         ca_mean, ca_std = statistics.column_stats(df, 'CA Distance')
         print(f"C-alpha distance: {ca_mean:.1f} +/- {ca_std:.1f} A")
 
-        pct_26 = statistics.percentage_within_threshold(df, 'CA Distance', 26)
+        pct_20 = statistics.percentage_within_threshold(df, 'CA Distance', 20)
         pct_50 = statistics.percentage_within_threshold(df, 'CA Distance', 50)
-        print(f"  <= 26 A: {pct_26:.1f}%")
+        print(f"  <= 20 A: {pct_20:.1f}%")
         print(f"  <= 50 A: {pct_50:.1f}%")
 
     # Filter by spectral count
@@ -161,8 +161,8 @@ def main():
     print(f"  {len(df_filtered)} crosslinks pass filter")
 
     if 'CA Distance' in df_filtered.columns and len(df_filtered) > 0:
-        sat_rate = statistics.satisfaction_rate(df_filtered, distance_threshold=26)
-        print(f"  Satisfaction rate (26 A): {sat_rate:.1f}%")
+        sat_rate = statistics.satisfaction_rate(df_filtered, distance_threshold=20)
+        print(f"  Satisfaction rate (20 A): {sat_rate:.1f}%")
 
     # Save filtered data
     filtered_path = output_dir / "tables" / f"crosslinks_sc{spectral_min}.csv"
@@ -199,7 +199,7 @@ def main():
         visualization.set_publication_style()
 
         # CA vs Spectral Count
-        fig = visualization.plot_ca_vs_spectral(df, ca_threshold=26, spectral_threshold=spectral_min)
+        fig = visualization.plot_ca_vs_spectral(df, ca_threshold=20, spectral_threshold=spectral_min)
         visualization.save_figure(fig, output_dir / "figures" / "ca_vs_spectral")
 
         # Sequence vs CA distance
@@ -226,7 +226,7 @@ def main():
             df_filtered,
             args.pdb,
             color_by_satisfaction=True,
-            threshold=26
+            threshold=20
         )
         script_path = output_dir / "chimera" / "visualize_crosslinks.cxc"
         chimera.save_chimera_script(script, script_path)

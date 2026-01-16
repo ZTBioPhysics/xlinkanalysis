@@ -9,7 +9,7 @@ filtering:
   spectral_count_min: 5
 
   # Maximum C-alpha distance (Angstroms) for "satisfied" crosslinks
-  # Typical DSSO crosslinker: ~26 Å, BS3: ~24 Å
+  # Typical PhoX crosslinker: ~20 Å
   ca_distance_max: 20
 
   # Alternative distance thresholds for reporting

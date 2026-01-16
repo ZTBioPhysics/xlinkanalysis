@@ -94,7 +94,7 @@ def format_color_by_distance(df: pd.DataFrame,
                              model: int = 1,
                              satisfied_color: str = 'green',
                              violated_color: str = 'red',
-                             threshold: float = 26.0) -> str:
+                             threshold: float = 20.0) -> str:
     """
     Generate commands to color crosslinks by satisfaction status.
 
@@ -187,7 +187,7 @@ def generate_visualization_script(df: pd.DataFrame,
                                   pdb_path: str,
                                   model: int = 1,
                                   color_by_satisfaction: bool = True,
-                                  threshold: float = 26.0) -> str:
+                                  threshold: float = 20.0) -> str:
     """
     Generate a complete ChimeraX visualization script.
 

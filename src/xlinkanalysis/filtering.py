@@ -183,7 +183,7 @@ def by_domain(df: pd.DataFrame,
 
 
 def satisfied_crosslinks(df: pd.DataFrame,
-                         max_distance: float = 26.0,
+                         max_distance: float = 20.0,
                          min_spectral_count: int = 1) -> pd.DataFrame:
     """
     Filter to "satisfied" crosslinks within expected distance constraints.
@@ -203,7 +203,7 @@ def satisfied_crosslinks(df: pd.DataFrame,
 
 
 def violated_crosslinks(df: pd.DataFrame,
-                        min_distance: float = 26.0,
+                        min_distance: float = 20.0,
                         min_spectral_count: int = 5) -> pd.DataFrame:
     """
     Filter to "violated" crosslinks exceeding expected distance constraints.
