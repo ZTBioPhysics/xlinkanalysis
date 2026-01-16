@@ -115,13 +115,14 @@ Define protein domains for annotation:
 ```yaml
 domains:
   NTD:
-    ranges: [[1, 994]]
+    ranges: [[1, 100]]
     color: "#1f77b4"
     description: "N-terminal domain"
 
-  beta-belt:
-    ranges: [[995, 2378]]
+  CTD:
+    ranges: [[101, 200]]
     color: "#ff7f0e"
+    description: "C-terminal domain"
 ```
 
 ### Analysis Parameters (`config/analysis_config.yaml`)
